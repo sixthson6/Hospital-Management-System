@@ -22,9 +22,9 @@ public class SQLExecutor {
                 }
             }
     
-            System.out.println("✅ SQL schema executed.");
+            System.out.println("SQL schema executed.");
         } catch (Exception e) {
-            System.err.println("❌ Error executing SQL schema: " + e.getMessage());
+            System.err.println("Error executing SQL schema: " + e.getMessage());
         }
     }
 }
