@@ -47,6 +47,11 @@
             <groupId>junit</groupId>
             <version>4.11</version>
         </dependency>
+        <dependency>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+            <version>4.11</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
