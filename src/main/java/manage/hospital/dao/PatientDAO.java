@@ -11,7 +11,7 @@ import manage.hospital.model.Patient;
 
 public class PatientDAO {
 
-    public void insertPatient(Patient patient) {
+   public void insertPatient(Patient patient) {
         String sql = "INSERT INTO Patient (patient_id, surname, first_name, address, phone) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -19,11 +19,35 @@ public class PatientDAO {
             stmt.setString(2, patient.getSurname());
             stmt.setString(3, patient.getFirstName());
             stmt.setString(4, patient.getAddress());
-            stmt.setString(5, patient.getPhone());
+             stmt.setString(5, patient.getPhone());
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error inserting patient: " + e.getMessage());
         }
+    }
+
+    public Patient getPatient(int patientId) {
+        String sql = "SELECT * FROM Patient WHERE patient_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, patientId);
+            ResultSet rs = stmt.executeQuery();
+    
+            if (rs.next()) {
+                int id = rs.getInt("patient_id");
+                String surname = rs.getString("surname");
+                String firstName = rs.getString("first_name");
+                String address = rs.getString("address");
+                String phone = rs.getString("phone");
+    
+                return new Patient(id, surname, firstName, address, phone);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving patient: " + e.getMessage());
+        }
+    
+        return null; // if patient not found or error occurs
     }
 
     public List<Patient> getAllPatients() {
